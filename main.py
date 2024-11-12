@@ -25,8 +25,8 @@ def weather():
 
     key = os.environ["WEATHER_API_KEY"]
     url = (
-    f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}"
-    f"&exclude=minutely,hourly,alerts&units=imperial&appid={key}"
+        f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}"
+        f"&exclude=minutely,hourly,alerts&units=imperial&appid={key}"
     )
 
     response_raw = requests.get(url)
