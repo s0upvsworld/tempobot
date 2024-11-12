@@ -1,7 +1,8 @@
-import requests
 import json
 import os
 from datetime import datetime
+
+import requests
 from openai import OpenAI
 
 
@@ -23,7 +24,10 @@ def weather():
     lon = "-73.88"
 
     key = os.environ["WEATHER_API_KEY"]
-    url = f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude=minutely,hourly,alerts&units=imperial&appid={key}"
+    url = (
+    f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}"
+    f"&exclude=minutely,hourly,alerts&units=imperial&appid={key}"
+    )
 
     response_raw = requests.get(url)
     response_json = response_raw.json()
@@ -53,13 +57,18 @@ def bot_ai(date, summary, sunrise, sunset, humidity, day_temp, min_temp, max_tem
 
     client = OpenAI()
 
-    personality = """
-    You are an AI bot named "Tempo". You are courteous yet direct. You are providing a morning update about today"s weather for me, Ken.
-    """
+    personality = (
+        "You are an AI bot named 'Tempo'. You are courteous yet direct. You are "
+        "providing a morning update about today's weather for me, Ken."
+    )
 
-    prompt = f"""
-    In three setences and no more than 60 words, give me a good morning and an update on the weather using the following: \n\nDate: {date}\nSummary: {summary}\nSunrise: {sunrise}\nSunset: {sunset}\nHumidity: {humidity}\nDay Temp: {day_temp}\nMin Temp: {min_temp}\nMax Temp: {max_temp}. In one sentence, sign the message.
-    """
+    prompt = (
+        f"In three sentences and no more than 60 words, give me a good morning and "
+        f"an update on the weather using the following: \n\nDate: {date}\nSummary: "
+        f"{summary}\nSunrise: {sunrise}\nSunset: {sunset}\nHumidity: {humidity}\nDay "
+        f"Temp: {day_temp}\nMin Temp: {min_temp}\nMax Temp: {max_temp}.In one sentence, "
+        f"sign the message."
+    )
 
     subject_init = client.chat.completions.create(
         model="gpt-4-turbo",
