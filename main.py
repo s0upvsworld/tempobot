@@ -1,6 +1,6 @@
 import requests
-import os
 import json
+import os
 from datetime import datetime
 from openai import OpenAI
 
@@ -22,7 +22,7 @@ def weather():
     lat = "40.75"
     lon = "-73.88"
 
-    key = os.getenv("weather_api_key")
+    key = os.environ("WEATHER_API_KEY")
     url = f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude=minutely,hourly,alerts&units=imperial&appid={key}"
 
     response_raw = requests.get(url)
@@ -65,8 +65,8 @@ def bot_ai(date, summary, sunrise, sunset, humidity, day_temp, min_temp, max_tem
         model="gpt-4-turbo",
         messages=[
             {"role": "system", "content": personality},
-            {"role": "user", "content": prompt}
-            ]
+            {"role": "user", "content": prompt},
+        ],
     )
     response = subject_init.choices[0].message.content
     return response
