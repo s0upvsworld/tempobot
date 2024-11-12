@@ -1,7 +1,7 @@
 import requests
-from datetime import datetime
 import os
 import json
+from datetime import datetime
 from openai import OpenAI
 
 
@@ -62,14 +62,15 @@ def bot_ai(date, summary, sunrise, sunset, humidity, day_temp, min_temp, max_tem
     """
 
     subject_init = client.chat.completions.create(
-    model="gpt-4-turbo",
-    messages=[
-        {"role": "system", "content": personality},
-        {"role": "user", "content": prompt}
-        ]
+        model="gpt-4-turbo",
+        messages=[
+            {"role": "system", "content": personality},
+            {"role": "user", "content": prompt}
+            ]
     )
     response = subject_init.choices[0].message.content
     return response
+
 
 if __name__ == "__main__":
 
